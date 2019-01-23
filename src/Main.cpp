@@ -14,7 +14,7 @@ int *createBuffer(int buffer_size) {
 	return buffer;
 }
 
-void Task(int time, int proc_num, int buffer_size) {
+void Task(int time, int proc_num, size_t buffer_size) {
     cout << "--------------Start task---------------\n";
 	int iter_num = 300;
     int proc_b_size = floor(buffer_size / proc_num);
@@ -43,9 +43,9 @@ void Task(int time, int proc_num, int buffer_size) {
         cout << "Thread " << it << " buffer size (KB):\t" << (double)sizes[it] * sizeof(int) / 1024  << endl;
     }
 
-	omp_set_num_threads(proc_num);
+    omp_set_dynamic(0);
     int count = 0;
-	#pragma omp parallel reduction(+:count)
+	#pragma omp parallel reduction(+:count) num_threads(proc_num)
 	{
         double start_time = omp_get_wtime();
         int s;
@@ -53,10 +53,15 @@ void Task(int time, int proc_num, int buffer_size) {
         int *parameters = buffer_proc[omp_get_thread_num()];
         int length = sizes[omp_get_thread_num()];
 
-        for (int it = 0; it < 1; it++) {
+        for (int it = 0; it < buffer_size; it++) {
 				for (int jt = 0; jt < length; jt++)
-					parameters[jt] == 0;
+					parameters[jt] == jt;
 			} 
+        
+        #pragma omp single
+        {
+             cout << "Wait " << time << " s." << endl;
+        }
 
 		while(!FLAG)
 		{    
@@ -75,9 +80,10 @@ void Task(int time, int proc_num, int buffer_size) {
 
 int main() {
 	int time = 20;
-    int buffer_size = (CACHE_SIZE / sizeof(int)) * 0.8 * 4;
+    int compare_proc_num = 2;
+    size_t buffer_size = (CACHE_SIZE / sizeof(int)) * 0.8 * compare_proc_num;
 	Task(time, 1, buffer_size);
-    Task(time, 4, buffer_size);
+    Task(time, compare_proc_num, buffer_size);
 
 	return 0;
 }

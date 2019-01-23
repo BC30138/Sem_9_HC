@@ -19,7 +19,7 @@
                 // "-Wshadow",
                 // "-std=c++11",
                 // "-fms-extensions",
-                "src/Main2.cpp",
+                "src/Main.cpp",
                 // "src/*.cpp",
                 // "src/*.h",
                 // "src/*.hpp",

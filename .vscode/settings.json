@@ -1,0 +1,18 @@
+{
+    "cSpell.enabled": false,
+    "files.associations": {
+        "__locale": "cpp",
+        "iosfwd": "cpp",
+        "iterator": "cpp",
+        "vector": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp",
+        "bitset": "cpp",
+        "__bit_reference": "cpp",
+        "algorithm": "cpp",
+        "chrono": "cpp",
+        "__string": "cpp",
+        "string": "cpp",
+        "string_view": "cpp"
+    }
+}

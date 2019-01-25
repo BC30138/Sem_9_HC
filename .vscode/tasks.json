@@ -6,48 +6,92 @@
     "tasks": [
         {
             "taskName": "Build",
-            "command": "g++-7",
             "isBuildCommand": true,
             "isShellCommand": true,
-            "args": [
-                "-DNDEBUG",
-                "-O0",
-                //  "-g",
-                "-fopenmp",
-                // "-Wall",
-                // "-Wextra",
-                // "-Wshadow",
-                // "-std=c++11",
-                // "-fms-extensions",
-                "src/Main.cpp",
-                // "src/*.cpp",
-                // "src/*.h",
-                // "src/*.hpp",
-                // "-Isrc",
-                // "-I/usr/local/include",
-                // "-I/usr/local/include/eigen3",
-                "-oHC.out"
-            ],
             "showOutput": "always",
-            "problemMatcher": {
-                "owner": "cpp",
-                "fileLocation": [
-                    "relative",
-                    "${workspaceRoot}"
+            "osx": {
+                "command": "g++-7",
+                "args": [
+                    "-DNDEBUG",
+                    "-O0",
+                    //  "-g",
+                    "-fopenmp",
+                    // "-Wall",
+                    // "-Wextra",
+                    // "-Wshadow",
+                    // "-std=c++11",
+                    // "-fms-extensions",
+                    "src/Main.cpp",
+                    // "src/*.cpp",
+                    // "src/*.h",
+                    // "src/*.hpp",
+                    // "-Isrc",
+                    // "-I/usr/local/include",
+                    // "-I/usr/local/include/eigen3",
+                    "-oHC.out"
                 ],
-                "pattern": {
-                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
-                    "file": 1,
-                    "line": 2,
-                    "column": 3,
-                    "severity": 4,
-                    "message": 5
+                "problemMatcher": {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}"
+                    ],
+                    "pattern": {
+                        "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            },
+            "windows": {
+                "command": "g++",
+                "args": [
+                    "-DNDEBUG",
+                    "-O0",
+                    //  "-g",
+                    "-fopenmp",
+                    // "-Wall",
+                    // "-Wextra",
+                    // "-Wshadow",
+                    // "-std=c++11",
+                    // "-fms-extensions",
+                    "src/Main.cpp",
+                    // "src/*.cpp",
+                    // "src/*.h",
+                    // "src/*.hpp",
+                    // "-Isrc",
+                    // "-I/usr/local/include",
+                    // "-I/usr/local/include/eigen3",
+                    "-o", "HC.exe"
+                ],
+                "problemMatcher": {
+                    "owner": "cpp",
+                    "fileLocation": [
+                        "relative",
+                        "${workspaceRoot}"
+                    ],
+                    "pattern": {
+                        "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
                 }
             }
         },
         {
             "taskName": "Run",
-            "command": "./HC.out",
+            "osx": {
+                "command": "./HC.out"  
+            },
+            "windows": {
+                "command": "./HC.exe"  
+            },
             "isShellCommand": true
         }
     ]

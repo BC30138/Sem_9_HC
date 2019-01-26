@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define CACHE_SIZE 32 * 1024 // у меня кэш L1 = 32КБ
+#define CACHE_SIZE 1024 * 1024
 
 int *createBuffer(int buffer_size) {
 	int *buffer = new int[buffer_size];
@@ -50,10 +50,10 @@ void Task(int time, int proc_num, size_t buffer_size) {
         }
         printf("Thread %d buffer size (KB):\t%f\n", omp_get_thread_num(), (double)(length * sizeof(int) ) / 1024);
 
-        for (int it = 0; it < buffer_size * 10; it++) {
-				for (int jt = 0; jt < length; jt++)
-					parameters[jt] == jt;
-			} 
+        // for (int it = 0; it < buffer_size; it++) {
+		// 		for (int jt = 0; jt < length; jt++)
+		// 			parameters[jt] == jt;
+		// 	} 
         
         #pragma omp single
         {
@@ -77,8 +77,9 @@ void Task(int time, int proc_num, size_t buffer_size) {
                 }
             }
 		}
+        delete[] parameters;
 	}
-     printf("Sum ref:\t%d x 10^6\n", count);
+    printf("Sum ref:\t%d x 10^6\n", count);
 }
 
 void Task_single(int time, size_t buffer_size)
@@ -94,10 +95,10 @@ void Task_single(int time, size_t buffer_size)
     int s;
     bool FLAG = false;
  
-    for (int it = 0; it < buffer_size * 10; it++) {
-            for (int jt = 0; jt < buffer_size; jt++)
-                buffer[jt] == jt;
-        } 
+    // for (int it = 0; it < buffer_size; it++) {
+    //         for (int jt = 0; jt < buffer_size; jt++)
+    //             buffer[jt] == jt;
+    //     } 
 
     cout << "Wait " << time << " s." << endl;
     
@@ -120,9 +121,9 @@ void Task_single(int time, size_t buffer_size)
 }
 
 int main() {
-	int time = 20;
+	int time = 50;
     int compare_proc_num = 4;
-    size_t buffer_size = (CACHE_SIZE / sizeof(int)) * 0.95 * compare_proc_num;
+    size_t buffer_size = (CACHE_SIZE / sizeof(int)) * 0.9 * compare_proc_num;
 	Task_single(time, buffer_size);
     Task(time, compare_proc_num, buffer_size);
 
